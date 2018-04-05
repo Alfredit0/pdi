@@ -1,0 +1,73 @@
+object frmGamma: TfrmGamma
+  Left = 571
+  Height = 227
+  Top = 202
+  Width = 488
+  Caption = 'Función Gamma'
+  ClientHeight = 227
+  ClientWidth = 488
+  OnCreate = FormCreate
+  LCLVersion = '1.4.0.4'
+  object bAceptar: TButton
+    Left = 42
+    Height = 39
+    Top = 168
+    Width = 163
+    Caption = 'Aceptar'
+    ModalResult = 1
+    TabOrder = 0
+  end
+  object bCancelar: TButton
+    Left = 294
+    Height = 39
+    Top = 168
+    Width = 163
+    Caption = 'Cancelar'
+    OnClick = bCancelarClick
+    TabOrder = 1
+  end
+  object TrackBar1: TTrackBar
+    Left = 32
+    Height = 29
+    Top = 75
+    Width = 429
+    Frequency = 2
+    Max = 100
+    Min = 1
+    OnChange = TrackBar1Change
+    Position = 20
+    TabOrder = 2
+  end
+  object Label1: TLabel
+    Left = 42
+    Height = 15
+    Top = 48
+    Width = 15
+    Caption = '0.5'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 114
+    Height = 15
+    Top = 48
+    Width = 15
+    Caption = '1.0'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 442
+    Height = 15
+    Top = 48
+    Width = 15
+    Caption = '5.0'
+    ParentColor = False
+  end
+  object lblPosicion: TLabel
+    Left = 154
+    Height = 15
+    Top = 120
+    Width = 15
+    Caption = '1.0'
+    ParentColor = False
+  end
+end
