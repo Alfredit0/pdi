@@ -7,14 +7,17 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ExtCtrls, uVarios, uFiltros, uGamma, uRegional;
+  ExtCtrls, StdCtrls, ExtDlgs, uVarios, uFiltros, uGamma, uRegional;
 
 type
 
   { TfrmImagen }
 
   TfrmImagen = class(TForm)
+    btnLoadImage: TButton;
+    Button2: TButton;
     Image1: TImage;
+    Image2: TImage;
     MainMenu1: TMainMenu;
     MenuItem1: TMenuItem;
     MenuItem10: TMenuItem;
@@ -45,11 +48,16 @@ type
     mnuArchivoAbrir: TMenuItem;
     mnuArchivo: TMenuItem;
     OpenDialog1: TOpenDialog;
+    OpenPictureDialog1: TOpenPictureDialog;
     SaveDialog1: TSaveDialog;
     ScrollBox1: TScrollBox;
+    Shape1: TShape;
+    procedure btnLoadImageClick(Sender: TObject);
     procedure FiltroMaxClick(Sender: TObject);
     procedure FiltroMinClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure Image2MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
     procedure MenuItem10Click(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem12Click(Sender: TObject);
@@ -71,6 +79,7 @@ type
     procedure mnuRegionGaussClick(Sender: TObject);
     procedure mnuRegionMediaClick(Sender: TObject);
     procedure mnuRegionMedianaClick(Sender: TObject);
+    procedure Shape1ChangeBounds(Sender: TObject);
   private
     { private declarations }
   public
@@ -79,6 +88,8 @@ type
     Iancho, Ialto: integer;
     MTR, MRES: Mat3D;
     nom: string;
+    P: TPoint;
+    inSelect: Boolean;
   end;
 
 var
@@ -111,6 +122,53 @@ end;
 procedure TfrmImagen.FormCreate(Sender: TObject);
 begin
   BM := TBitmap.Create; //Crea el espacio para la imagen
+
+    Shape1.Pen.Color := clWhite;
+  Shape1.Pen.Style := psDot;
+  Shape1.Visible   := False;
+  inSelect         := False;
+  with Image1 do
+  begin
+    OnMouseDown:= nil;
+    OnMouseMove:= nil;
+    OnMouseUp  := nil;
+  end;
+end;
+
+
+
+procedure TfrmImagen.Image2MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  pic: TPicture;
+  bmp: TBitmap;
+  img: TImage;
+begin
+  if inSelect and ( P.X < X )and( P.Y < Y ) then
+  begin
+    img:= TImage(Sender);
+    pic:= TPicture.Create;
+    try
+      pic.Assign(img.Picture);
+      bmp:= TBitmap.Create;
+      try
+        bmp.Height:= img.Picture.Height;
+        bmp.Width := img.Picture.Width;
+        bmp.Canvas.Draw(0, 0, Pic.Graphic);
+        bmp.Canvas.CopyRect(Rect(0, 0, X-P.X, Y-P.Y),
+          bmp.Canvas, Rect(P.X, P.Y, X, Y));
+        bmp.Width := Abs(X-P.X);
+        bmp.Height:= Abs(Y-P.Y);
+        Image2.Picture.Bitmap.Assign(bmp);
+      finally
+        bmp.Free;
+      end;
+    finally
+      pic.Free;
+    end;
+  end;
+  Shape1.Visible:= False;
+  InSelect:= False;
 end;
 
 procedure TfrmImagen.FiltroMaxClick(Sender: TObject);
@@ -121,6 +179,18 @@ begin
   FRMediana(MTR, MRES, Iancho, Ialto, 3); //Aplica el filtro de la Mediana a la matriz MTR
   MAT_BM(MRES, BM, Iancho, Ialto);  //La matriz resultado se pasa al bitmap
   MImagen(BM);                   //Muestra la imagen
+end;
+
+procedure TfrmImagen.btnLoadImageClick(Sender: TObject);
+begin
+    if OpenPictureDialog1.Execute then
+    with Image1 do
+    begin
+      Picture.LoadFromFile(OpenPictureDialog1.FileName);
+      //OnMouseDown:= Image2MouseDown;
+//      OnMouseMove:= Image2MouseMove;
+      //OnMouseUp  := Image2MouseUp;
+    end;
 end;
 
 //filtro minimo
@@ -342,15 +412,15 @@ end;
 procedure TfrmImagen.mnuRegionGaussClick(Sender: TObject);
 var
   matc: Matdxd;
-  p: real;
+  ps: real;
 begin
   Iancho := BM.Width; //Obtiene el ancho de la imagen
   Ialto := BM.Height; //Obtiene el alto de la imagen
   BM_Mat(BM, MTr);     //Coloca la imagen en una matriz
-  p := 1 / 16;
+  ps := 1 / 16;
   //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
   CopiaVaV(matc, 2);
-  FRGausiana(MTR, MRES, Iancho, Ialto, matc, p); //Aplica el filtro Media
+  FRGausiana(MTR, MRES, Iancho, Ialto, matc, ps); //Aplica el filtro Media
   Mat_BM(MRes, BM, Iancho, Ialto); //Obtiene el resultado
   MImagen(BM);        //Muestra la imagen
 end;
@@ -359,7 +429,7 @@ end;
 procedure TfrmImagen.mnuRegionMediaClick(Sender: TObject);
 var
   matc: Matdxd;
-  p: real;
+  ps: real;
 begin
   Iancho := BM.Width; //Obtiene el ancho de la imagen
   Ialto := BM.Height; //Obtiene el alto de la imagen
@@ -367,7 +437,7 @@ begin
   p := 1 / 9;
   //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
   CopiaVaV(matc, 1);
-  FRMedia(MTR, MRES, Iancho, Ialto, matc, p); //Aplica el filtro Media
+  FRMedia(MTR, MRES, Iancho, Ialto, matc, ps); //Aplica el filtro Media
   Mat_BM(MRes, BM, Iancho, Ialto); //Obtiene el resultado
   MImagen(BM);        //Muestra la imagen
 end;
@@ -382,5 +452,12 @@ begin
   MAT_BM(MRES, BM, Iancho, Ialto);  //La matriz resultado se pasa al bitmap
   MImagen(BM);                   //Muestra la imagen
 end;
+
+procedure TfrmImagen.Shape1ChangeBounds(Sender: TObject);
+begin
+
+end;
+
+
 
 end.

@@ -1,11 +1,11 @@
 object frmImagen: TfrmImagen
-  Left = 1352
-  Height = 413
-  Top = 383
-  Width = 510
+  Left = 509
+  Height = 534
+  Top = 261
+  Width = 1114
   Caption = 'IMAGEN'
-  ClientHeight = 393
-  ClientWidth = 510
+  ClientHeight = 514
+  ClientWidth = 1114
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.4.0.4'
@@ -26,6 +26,37 @@ object frmImagen: TfrmImagen
       Width = 400
       AutoSize = True
     end
+  end
+  object Image2: TImage
+    Left = 608
+    Height = 336
+    Top = 16
+    Width = 296
+    OnMouseUp = Image2MouseUp
+  end
+  object Shape1: TShape
+    Left = 616
+    Height = 320
+    Top = 24
+    Width = 280
+    OnChangeBounds = Shape1ChangeBounds
+  end
+  object btnLoadImage: TButton
+    Left = 952
+    Height = 25
+    Top = 40
+    Width = 95
+    Caption = 'Cargar Imagen'
+    OnClick = btnLoadImageClick
+    TabOrder = 1
+  end
+  object Button2: TButton
+    Left = 976
+    Height = 25
+    Top = 88
+    Width = 75
+    Caption = 'Button2'
+    TabOrder = 2
   end
   object MainMenu1: TMainMenu
     left = 440
@@ -143,5 +174,9 @@ object frmImagen: TfrmImagen
   object SaveDialog1: TSaveDialog
     left = 440
     top = 224
+  end
+  object OpenPictureDialog1: TOpenPictureDialog
+    left = 971
+    top = 180
   end
 end

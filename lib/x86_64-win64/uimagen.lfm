@@ -1,0 +1,147 @@
+object frmImagen: TfrmImagen
+  Left = 241
+  Height = 534
+  Top = 124
+  Width = 1114
+  Caption = 'IMAGEN'
+  ClientHeight = 514
+  ClientWidth = 1114
+  Menu = MainMenu1
+  OnCreate = FormCreate
+  LCLVersion = '1.8.2.0'
+  object ScrollBox1: TScrollBox
+    Left = 8
+    Height = 368
+    Top = 8
+    Width = 408
+    HorzScrollBar.Page = 400
+    VertScrollBar.Page = 360
+    ClientHeight = 364
+    ClientWidth = 404
+    TabOrder = 0
+    object Image1: TImage
+      Left = 0
+      Height = 360
+      Top = 0
+      Width = 400
+      AutoSize = True
+    end
+  end
+  object MainMenu1: TMainMenu
+    left = 440
+    top = 336
+    object mnuArchivo: TMenuItem
+      Caption = 'Archivo'
+      object mnuArchivoAbrir: TMenuItem
+        Caption = 'Abrir'
+        OnClick = mnuArchivoAbrirClick
+      end
+      object mnuArchivoGuardar: TMenuItem
+        Caption = 'Guardar'
+        OnClick = mnuArchivoGuardarClick
+      end
+      object mnuArchivoSalir: TMenuItem
+        Caption = 'Salir'
+        OnClick = mnuArchivoSalirClick
+      end
+    end
+    object MenuItem11: TMenuItem
+      Caption = 'Editar'
+      OnClick = MenuItem11Click
+      object MenuItem12: TMenuItem
+        Caption = 'Recortar'
+        OnClick = MenuItem12Click
+      end
+    end
+    object MenuItem2: TMenuItem
+      Caption = 'Ver'
+      object MenuItem3: TMenuItem
+        Caption = 'Original'
+        OnClick = MenuItem3Click
+      end
+      object MenuItem4: TMenuItem
+        Caption = 'Completa'
+        OnClick = MenuItem4Click
+      end
+    end
+    object mnuPuntuales: TMenuItem
+      Caption = 'Op. Puntuales'
+      object mnuPuntualNegativo: TMenuItem
+        Caption = 'Negativo'
+        OnClick = mnuPuntualNegativoClick
+      end
+      object mnuPuntualGamma: TMenuItem
+        Caption = 'Gamma'
+        OnClick = mnuPuntualGammaClick
+      end
+      object MenuItem5: TMenuItem
+        Caption = 'Escala de grises'
+        OnClick = MenuItem5Click
+      end
+      object mnuPuntualLog: TMenuItem
+        Caption = 'Logarítmico'
+        OnClick = mnuPuntualLogClick
+      end
+      object mnuPuntualSeno: TMenuItem
+        Caption = 'Seno'
+        OnClick = mnuPuntualSenoClick
+      end
+      object MenuItem10: TMenuItem
+        Caption = 'Coseno'
+        OnClick = MenuItem10Click
+      end
+      object mnuPuntualCos: TMenuItem
+        Caption = 'Exponencial fuerte'
+        OnClick = mnuPuntualCosClick
+      end
+      object MenuItem1: TMenuItem
+        Caption = 'Exponencial'
+        OnClick = MenuItem1Click
+      end
+    end
+    object mnuRegion: TMenuItem
+      Caption = 'Op. Regionales'
+      object mnuRegionMedia: TMenuItem
+        Caption = 'Media'
+        OnClick = mnuRegionMediaClick
+      end
+      object mnuRegionMediana: TMenuItem
+        Caption = 'Mediana'
+        OnClick = mnuRegionMedianaClick
+      end
+      object mnuRegionGauss: TMenuItem
+        Caption = 'Gaussiano'
+        OnClick = mnuRegionGaussClick
+      end
+      object FiltroMax: TMenuItem
+        Caption = 'Maximo'
+        OnClick = FiltroMaxClick
+      end
+      object FiltroMin: TMenuItem
+        Caption = 'Minimo'
+        OnClick = FiltroMinClick
+      end
+    end
+    object MenuItem6: TMenuItem
+      Caption = 'Herramientas'
+      object MenuItem7: TMenuItem
+        Caption = 'Histograma'
+      end
+      object MenuItem8: TMenuItem
+        Caption = 'Perfil fila'
+      end
+    end
+    object MenuItem9: TMenuItem
+      Caption = 'Ayuda'
+      OnClick = MenuItem9Click
+    end
+  end
+  object OpenDialog1: TOpenDialog
+    left = 440
+    top = 288
+  end
+  object SaveDialog1: TSaveDialog
+    left = 440
+    top = 224
+  end
+end

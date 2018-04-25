@@ -1,14 +1,14 @@
 object frmImagen: TfrmImagen
-  Left = 1352
-  Height = 413
-  Top = 383
-  Width = 510
+  Left = 241
+  Height = 534
+  Top = 124
+  Width = 1114
   Caption = 'IMAGEN'
-  ClientHeight = 393
-  ClientWidth = 510
+  ClientHeight = 514
+  ClientWidth = 1114
   Menu = MainMenu1
   OnCreate = FormCreate
-  LCLVersion = '1.4.0.4'
+  LCLVersion = '1.8.2.0'
   object ScrollBox1: TScrollBox
     Left = 8
     Height = 368
