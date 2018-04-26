@@ -16,6 +16,7 @@ type
   TfrmImagen = class(TForm)
     btnFilAnt: TButton;
     BtnFilSig: TButton;
+    btnSalirPF: TButton;
     Image1: TImage;
     imgHisto: TImage;
     Label1: TLabel;
@@ -26,6 +27,13 @@ type
     FiltroMin: TMenuItem;
     MenuItem11: TMenuItem;
     MenuItem12: TMenuItem;
+    MenuItem13: TMenuItem;
+    MenuItem14: TMenuItem;
+    MenuItem15: TMenuItem;
+    MenuItem16: TMenuItem;
+    MenuItem17: TMenuItem;
+    MenuItem18: TMenuItem;
+    MenuItem19: TMenuItem;
     MenuItem2: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
@@ -56,6 +64,7 @@ type
     procedure btnFilAntClick(Sender: TObject);
     procedure BtnFilSigClick(Sender: TObject);
     procedure btnLoadImageClick(Sender: TObject);
+    procedure btnSalirPFClick(Sender: TObject);
     procedure FiltroMaxClick(Sender: TObject);
     procedure FiltroMinClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -64,6 +73,12 @@ type
     procedure MenuItem10Click(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
     procedure MenuItem12Click(Sender: TObject);
+    procedure MenuItem14Click(Sender: TObject);
+    procedure MenuItem15Click(Sender: TObject);
+    procedure MenuItem16Click(Sender: TObject);
+    procedure MenuItem17Click(Sender: TObject);
+    procedure MenuItem18Click(Sender: TObject);
+    procedure MenuItem19Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
@@ -199,6 +214,17 @@ procedure TfrmImagen.btnLoadImageClick(Sender: TObject);
 begin
 end;
 
+procedure TfrmImagen.btnSalirPFClick(Sender: TObject);
+begin
+  btnFilAnt.Visible:=False;
+  txtFilaAct.Visible:=False;
+  BtnFilSig.Visible:=False;
+  Label1.Visible:=False;
+  txtFilaAct1.Visible:=False;
+  imgHisto.Visible:=False;
+  btnSalirPF.Visible:=False;
+end;
+
 //filtro minimo
 procedure TfrmImagen.FiltroMinClick(Sender: TObject);
 begin
@@ -228,6 +254,94 @@ end;
 
 procedure TfrmImagen.MenuItem12Click(Sender: TObject);
 begin
+end;
+
+procedure TfrmImagen.MenuItem14Click(Sender: TObject);
+var
+  matc : Matdxd;
+begin
+  Iancho := BM.Width; //Obtiene el ancho de la imagen
+  Ialto := BM.Height; //Obtiene el alto de la imagen
+  BM_Mat(BM,MTr);     //Coloca la imagen en una matriz
+  //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
+  CopiaVaVL1(matc);
+  FRLap4mas(MTR,MRES,Iancho,Ialto,matc); //Aplica el filtro Media
+  Mat_BM(MRes,BM,Iancho,Ialto); //Obtiene el resultado
+  MImagen(BM);        //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem15Click(Sender: TObject);
+var
+matc : Matdxd;
+begin
+Iancho := BM.Width; //Obtiene el ancho de la imagen
+Ialto := BM.Height; //Obtiene el alto de la imagen
+BM_Mat(BM,MTr);     //Coloca la imagen en una matriz
+//Obtiene la matriz de convolución en un entorno de vecindad de 3x3
+CopiaVaVL2(matc);
+FRLap4mas(MTR,MRES,Iancho,Ialto,matc); //Aplica el filtro Media
+Mat_BM(MRes,BM,Iancho,Ialto); //Obtiene el resultado
+MImagen(BM);        //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem16Click(Sender: TObject);
+var
+  matc : Matdxd;
+begin
+  Iancho := BM.Width; //Obtiene el ancho de la imagen
+  Ialto := BM.Height; //Obtiene el alto de la imagen
+  BM_Mat(BM,MTr);     //Coloca la imagen en una matriz
+  //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
+  CopiaVaVL3(matc);
+  FRLap4mas(MTR,MRES,Iancho,Ialto,matc); //Aplica el filtro Media
+  Mat_BM(MRes,BM,Iancho,Ialto); //Obtiene el resultado
+  MImagen(BM);        //Muestra la imagen
+
+end;
+
+procedure TfrmImagen.MenuItem17Click(Sender: TObject);
+var
+  matc : Matdxd;
+  p : real;
+begin
+  Iancho := BM.Width; //Obtiene el ancho de la imagen
+  Ialto := BM.Height; //Obtiene el alto de la imagen
+  BM_Mat(BM,MTr);     //Coloca la imagen en una matriz
+  //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
+  CopiaVaVL4(matc);
+  FRLap4mas(MTR,MRES,Iancho,Ialto,matc); //Aplica el filtro Media
+  Mat_BM(MRes,BM,Iancho,Ialto); //Obtiene el resultado
+  MImagen(BM);        //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem18Click(Sender: TObject);
+var
+  matc : Matdxd;
+  p : real;
+begin
+  Iancho := BM.Width; //Obtiene el ancho de la imagen
+  Ialto := BM.Height; //Obtiene el alto de la imagen
+  BM_Mat(BM,MTr);     //Coloca la imagen en una matriz
+  //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
+  CopiaVaVL5(matc);
+  FRLap4mas(MTR,MRES,Iancho,Ialto,matc); //Aplica el filtro Media
+  Mat_BM(MRes,BM,Iancho,Ialto); //Obtiene el resultado
+  MImagen(BM);        //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem19Click(Sender: TObject);
+var
+  matc : Matdxd;
+  p : real;
+begin
+  Iancho := BM.Width; //Obtiene el ancho de la imagen
+  Ialto := BM.Height; //Obtiene el alto de la imagen
+  BM_Mat(BM,MTr);     //Coloca la imagen en una matriz
+  //Obtiene la matriz de convolución en un entorno de vecindad de 3x3
+  CopiaVaVL6(matc);
+  FRLap4mas(MTR,MRES,Iancho,Ialto,matc); //Aplica el filtro Media
+  Mat_BM(MRes,BM,Iancho,Ialto); //Obtiene el resultado
+  MImagen(BM);        //Muestra la imagen
 end;
 
 
@@ -283,12 +397,19 @@ end;
 
 procedure TfrmImagen.MenuItem7Click(Sender: TObject);
 begin
+  BA.Assign(frmImagen.Image1.Picture.Bitmap);
   frmHistograma.Show;
 end;
 
 procedure TfrmImagen.MenuItem8Click(Sender: TObject);
 begin
-
+  btnFilAnt.Visible:=True;
+  txtFilaAct.Visible:=True;
+  BtnFilSig.Visible:=True;
+  Label1.Visible:=True;
+  txtFilaAct1.Visible:=True;
+  imgHisto.Visible:=True;
+  btnSalirPF.Visible:=True;
 end;
 
 procedure TfrmImagen.MenuItem9Click(Sender: TObject);
