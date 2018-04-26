@@ -22,6 +22,8 @@ type
    procedure BM_MAT (var B : TBitMap; var M : Mat3D);
    procedure MAT_BM(var M : Mat3D; var B : TBitMap; nc,nr : integer);
    function OrdV9(a : V9; op : integer): Byte;
+var
+      BA : TBitMap;
 
 implementation
 

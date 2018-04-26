@@ -7,7 +7,7 @@ uses
   cthreads,
   {$ENDIF}{$ENDIF}
   Interfaces, // this includes the LCL widgetset
-  Forms, uImagen, uVarios, uFiltros, uGamma, uRegional
+  Forms, uImagen, uVarios, uFiltros, uGamma, uRegional, uHistograma
   { you can add units after this };
 
 {$R *.res}
@@ -17,6 +17,7 @@ begin
   Application.Initialize;
   Application.CreateForm(TfrmImagen, frmImagen);
   Application.CreateForm(TfrmGamma, frmGamma);
+  Application.CreateForm(TfrmHistograma, frmHistograma);
   Application.Run;
 end.
 

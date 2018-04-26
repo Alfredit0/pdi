@@ -1,11 +1,11 @@
 object frmImagen: TfrmImagen
-  Left = 241
-  Height = 534
-  Top = 124
-  Width = 1114
+  Left = 381
+  Height = 706
+  Top = 9
+  Width = 1366
   Caption = 'IMAGEN'
-  ClientHeight = 514
-  ClientWidth = 1114
+  ClientHeight = 686
+  ClientWidth = 1366
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.8.2.0'
@@ -26,6 +26,86 @@ object frmImagen: TfrmImagen
       Width = 400
       AutoSize = True
     end
+  end
+  object imgHisto: TImage
+    Left = 16
+    Height = 232
+    Top = 440
+    Width = 600
+  end
+  object Label1: TLabel
+    Left = 16
+    Height = 23
+    Top = 392
+    Width = 119
+    Caption = 'Número de Fila:'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Arial Narrow'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentColor = False
+    ParentFont = False
+  end
+  object txtFilaAct1: TEdit
+    Left = 160
+    Height = 31
+    Top = 392
+    Width = 40
+    Alignment = taCenter
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -19
+    Font.Name = 'Arial Narrow'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 1
+    Text = '0'
+  end
+  object txtFilaAct: TEdit
+    Left = 472
+    Height = 23
+    Top = 40
+    Width = 88
+    Alignment = taCenter
+    ReadOnly = True
+    TabOrder = 2
+    Text = '0'
+  end
+  object btnFilAnt: TButton
+    Left = 464
+    Height = 25
+    Top = 8
+    Width = 104
+    Caption = 'Retroceder fila'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Arial Narrow'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = btnFilAntClick
+    ParentFont = False
+    TabOrder = 3
+  end
+  object BtnFilSig: TButton
+    Left = 464
+    Height = 26
+    Top = 72
+    Width = 104
+    Caption = 'Siguiente Fila'
+    Font.CharSet = ANSI_CHARSET
+    Font.Height = -16
+    Font.Name = 'Arial Narrow'
+    Font.Pitch = fpVariable
+    Font.Quality = fqDraft
+    Font.Style = [fsBold]
+    OnClick = BtnFilSigClick
+    ParentFont = False
+    TabOrder = 4
   end
   object MainMenu1: TMainMenu
     left = 440
@@ -126,9 +206,11 @@ object frmImagen: TfrmImagen
       Caption = 'Herramientas'
       object MenuItem7: TMenuItem
         Caption = 'Histograma'
+        OnClick = MenuItem7Click
       end
       object MenuItem8: TMenuItem
         Caption = 'Perfil fila'
+        OnClick = MenuItem8Click
       end
     end
     object MenuItem9: TMenuItem
