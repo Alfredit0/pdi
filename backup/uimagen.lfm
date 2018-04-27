@@ -1,7 +1,7 @@
 object frmImagen: TfrmImagen
-  Left = 381
+  Left = 265
   Height = 706
-  Top = 9
+  Top = 17
   Width = 1366
   Caption = 'IMAGEN'
   ClientHeight = 686
@@ -117,7 +117,7 @@ object frmImagen: TfrmImagen
     Visible = False
   end
   object btnSalirPF: TButton
-    Left = 464
+    Left = 456
     Height = 25
     Top = 136
     Width = 128
@@ -127,7 +127,7 @@ object frmImagen: TfrmImagen
     Visible = False
   end
   object Sel: TShape
-    Left = 256
+    Left = 280
     Height = 48
     Top = 376
     Width = 65
@@ -135,6 +135,36 @@ object frmImagen: TfrmImagen
     Pen.Color = clLime
     Pen.Style = psDot
     Visible = False
+  end
+  object Image2: TImage
+    Left = 616
+    Height = 354
+    Top = 20
+    Width = 330
+  end
+  object Image3: TImage
+    Left = 1051
+    Height = 356
+    Top = 20
+    Width = 293
+  end
+  object btnAbrir2: TBitBtn
+    Left = 736
+    Height = 30
+    Top = 392
+    Width = 99
+    Caption = 'Abrir Imagen B'
+    OnClick = btnAbrir2Click
+    TabOrder = 6
+  end
+  object btnOpAr: TBitBtn
+    Left = 968
+    Height = 30
+    Top = 393
+    Width = 75
+    Caption = 'Sumar'
+    OnClick = btnOpArClick
+    TabOrder = 7
   end
   object MainMenu1: TMainMenu
     left = 440
@@ -262,12 +292,14 @@ object frmImagen: TfrmImagen
       Caption = 'Op. Aritmeticas'
       object MenuItem21: TMenuItem
         Caption = 'Suma 1'
+        OnClick = MenuItem21Click
       end
       object MenuItem22: TMenuItem
         Caption = 'Suma 2'
       end
       object MenuItem23: TMenuItem
         Caption = 'Resta 1'
+        OnClick = MenuItem23Click
       end
       object MenuItem24: TMenuItem
         Caption = 'Resta 2'

@@ -7,17 +7,22 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, Menus,
-  ExtCtrls, StdCtrls, uVarios, uFiltros, uGamma,uHistograma, Math, uRegional;
+  ExtCtrls, StdCtrls, Buttons, uVarios, uFiltros, uGamma, uHistograma, Math,
+  uRegional;
 
 type
 
   { TfrmImagen }
 
   TfrmImagen = class(TForm)
+    btnOpAr: TBitBtn;
+    btnAbrir2: TBitBtn;
     btnFilAnt: TButton;
     BtnFilSig: TButton;
     btnSalirPF: TButton;
     Image1: TImage;
+    Image2: TImage;
+    Image3: TImage;
     imgHisto: TImage;
     Label1: TLabel;
     MainMenu1: TMainMenu;
@@ -74,6 +79,8 @@ type
     procedure btnFilAntClick(Sender: TObject);
     procedure BtnFilSigClick(Sender: TObject);
     procedure btnLoadImageClick(Sender: TObject);
+    procedure btnAbrir2Click(Sender: TObject);
+    procedure btnOpArClick(Sender: TObject);
     procedure btnSalirPFClick(Sender: TObject);
     procedure FiltroMaxClick(Sender: TObject);
     procedure FiltroMinClick(Sender: TObject);
@@ -90,6 +97,9 @@ type
     procedure MenuItem18Click(Sender: TObject);
     procedure MenuItem19Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem21Click(Sender: TObject);
+    procedure MenuItem22Click(Sender: TObject);
+    procedure MenuItem23Click(Sender: TObject);
     procedure MenuItem26Click(Sender: TObject);
     procedure MenuItem27Click(Sender: TObject);
     procedure MenuItem28Click(Sender: TObject);
@@ -125,8 +135,11 @@ type
   public
     { public declarations }
     BM: TBitMap;
+    BM2: TBitMap;
     Iancho, Ialto: integer;
+    Iancho2, Ialto2: integer;
     MTR, MRES: Mat3D;
+    MTR2: Mat3D;
     nom: string;
     P: TPoint;
     inSelect: Boolean;
@@ -156,11 +169,18 @@ end;
 
 //Abre archivo de imagen BMP
 procedure TfrmImagen.mnuArchivoAbrirClick(Sender: TObject);
+var Picture: TPicture;
 begin
+  Picture:=TPicture.Create;
+  OpenDialog1.Filter:='Imagen BMP|*.bmp| Imagen JPG|*.jpg| Imagen PNG|*.png';
   if OpenDialog1.Execute then
   begin
     nom := OpenDialog1.FileName;
-    BM.LoadFromFile(nom); //Carga la imagen en el BitMap
+    Picture.LoadFromFile(nom);
+    BM.Width:=Picture.Width;
+    BM.Height:=Picture.Height;
+    BM.Canvas.Draw(0,0, Picture.Graphic);
+    //.LoadFromFile(nom); //Carga la imagen en el BitMap
     MImagen(BM);          //Muestra la imagen
 
    BA.Assign(BM);
@@ -178,7 +198,8 @@ end;
 procedure TfrmImagen.FormCreate(Sender: TObject);
 begin
   BM := TBitmap.Create; //Crea el espacio para la imagen
-  BM := TBitmap.Create;
+//  BM := TBitmap.Create;
+  BM2 := TBitmap.Create;
   BA := TBitmap.Create;
   Han := imgHisto.Width;  //Ancho y alto de la ventana donde se
   Hal := imgHisto.Height; //graficara el histograma
@@ -274,6 +295,34 @@ end;
 
 procedure TfrmImagen.btnLoadImageClick(Sender: TObject);
 begin
+end;
+
+procedure TfrmImagen.btnAbrir2Click(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+  begin
+    nom := OpenDialog1.FileName;
+    BM.LoadFromFile(nom); //Carga la imagen en el BitMap
+    BA.Assign(BM);
+
+    BH.Assign(BA);  //El contenido de BA se asigna a BH
+    nc := BH.Width; //Número de columnas
+    nr := BH.Height;//Número de renglones
+    BM_MAT(BH,MH);  //Pasa la imagen a un matriz
+    BM2.Assign(BM);
+    Image2.Picture.Assign(BM2); //Muestra la imagen
+  end;
+end;
+
+procedure TfrmImagen.btnOpArClick(Sender: TObject);
+begin
+  Iancho := BM2.Width;   //Obtiene el ancho de la imagen
+  Ialto := BM2.Height;  //Obtiene el alto de la imagen
+  BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
+  BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
+  sumaImagenes1(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
+  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BM2); //Muestra la imagen
 end;
 
 procedure TfrmImagen.btnSalirPFClick(Sender: TObject);
@@ -425,6 +474,33 @@ begin
   end
   else if alpha < 1 then
     ShowMessage('α debe ser mayor a 1!');
+end;
+
+procedure TfrmImagen.MenuItem21Click(Sender: TObject);
+begin
+
+end;
+
+procedure TfrmImagen.MenuItem22Click(Sender: TObject);
+begin
+  Iancho := BM2.Width;   //Obtiene el ancho de la imagen
+  Ialto := BM2.Height;  //Obtiene el alto de la imagen
+  BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
+  BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
+  sumaImagenes2(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
+  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BM2); //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem23Click(Sender: TObject);
+begin
+  Iancho := BM2.Width;   //Obtiene el ancho de la imagen
+  Ialto := BM2.Height;  //Obtiene el alto de la imagen
+  BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
+  BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
+  restaImagenes1(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
+  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BM2); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem26Click(Sender: TObject);
