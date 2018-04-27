@@ -1,7 +1,7 @@
 object frmImagen: TfrmImagen
-  Left = 265
+  Left = 5
   Height = 706
-  Top = 17
+  Top = 41
   Width = 1366
   Caption = 'IMAGEN'
   ClientHeight = 686
@@ -157,15 +157,6 @@ object frmImagen: TfrmImagen
     OnClick = btnAbrir2Click
     TabOrder = 6
   end
-  object btnOpAr: TBitBtn
-    Left = 968
-    Height = 30
-    Top = 393
-    Width = 75
-    Caption = 'Sumar'
-    OnClick = btnOpArClick
-    TabOrder = 7
-  end
   object MainMenu1: TMainMenu
     left = 440
     top = 336
@@ -290,12 +281,21 @@ object frmImagen: TfrmImagen
     end
     object MenuItem20: TMenuItem
       Caption = 'Op. Aritmeticas'
+      object MenuItem29: TMenuItem
+        Caption = 'AND'
+        OnClick = MenuItem29Click
+      end
+      object MenuItem30: TMenuItem
+        Caption = 'OR'
+        OnClick = MenuItem30Click
+      end
       object MenuItem21: TMenuItem
         Caption = 'Suma 1'
         OnClick = MenuItem21Click
       end
       object MenuItem22: TMenuItem
         Caption = 'Suma 2'
+        OnClick = MenuItem22Click
       end
       object MenuItem23: TMenuItem
         Caption = 'Resta 1'
@@ -303,9 +303,11 @@ object frmImagen: TfrmImagen
       end
       object MenuItem24: TMenuItem
         Caption = 'Resta 2'
+        OnClick = MenuItem24Click
       end
       object MenuItem25: TMenuItem
         Caption = 'Resta 3'
+        OnClick = MenuItem25Click
       end
       object MenuItem26: TMenuItem
         Caption = 'Reflexión horizontal'

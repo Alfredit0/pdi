@@ -26,6 +26,10 @@ const
   procedure sumaImagenes1(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   procedure sumaImagenes2(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   procedure restaImagenes1(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  procedure restaImagenes2(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  procedure restaImagenes3(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  procedure operacionAND(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  procedure operacionOR(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
 
 
 implementation
@@ -187,7 +191,7 @@ end;
   //Procedimiento que suma dos imagenes
   procedure sumaImagenes1(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   var
-    i, j, k, suma : integer;
+    i, j, k : integer;
   begin
     SetLength(MR,mc,nr,3);
     for j := 0 to nr-1 do      //filas
@@ -200,7 +204,7 @@ end;
     //Procedimiento que suma dos imagenes
   procedure sumaImagenes2(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   var
-    i, j, k, suma : integer;
+    i, j, k : integer;
   begin
     SetLength(MR,mc,nr,3);
     for j := 0 to nr-1 do      //filas
@@ -217,7 +221,7 @@ end;
   end;
   procedure restaImagenes1(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   var
-    i, j, k, suma : integer;
+    i, j, k : integer;
   begin
     SetLength(MR,mc,nr,3);
     for j := 0 to nr-1 do      //filas
@@ -234,7 +238,7 @@ end;
   end;
     procedure restaImagenes2(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   var
-    i, j, k, suma : integer;
+    i, j, k : integer;
   begin
     SetLength(MR,mc,nr,3);
     for j := 0 to nr-1 do      //filas
@@ -242,6 +246,44 @@ end;
          for k := 0 to 2 do    //canales RGB
            begin
                     MR[i][j][k]:=abs(M1[i][j][k]-M2[i][j][k]);
+           end;
+  end;
+
+        procedure restaImagenes3(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  var
+    i, j, k : integer;
+  begin
+    SetLength(MR,mc,nr,3);
+    for j := 0 to nr-1 do      //filas
+       for i := 0 to mc-1 do   //columnas
+         for k := 0 to 2 do    //canales RGB
+           begin
+                    MR[i][j][k]:=round((255*0.5)+((M1[i][j][k]-M2[i][j][k])*0.5));
+           end;
+  end;
+
+        procedure operacionAND(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  var
+    i, j, k : integer;
+  begin
+    SetLength(MR,mc,nr,3);
+    for j := 0 to nr-1 do      //filas
+       for i := 0 to mc-1 do   //columnas
+         for k := 0 to 2 do    //canales RGB
+           begin
+                    MR[i][j][k]:=M1[i][j][k] and M2[i][j][k];
+           end;
+  end;
+        procedure operacionOR(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  var
+    i, j, k : integer;
+  begin
+    SetLength(MR,mc,nr,3);
+    for j := 0 to nr-1 do      //filas
+       for i := 0 to mc-1 do   //columnas
+         for k := 0 to 2 do    //canales RGB
+           begin
+                    MR[i][j][k]:=M1[i][j][k] or M2[i][j][k];
            end;
   end;
 end.
