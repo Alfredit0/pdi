@@ -19,6 +19,7 @@ type
     btnFilAnt: TButton;
     BtnFilSig: TButton;
     btnSalirPF: TButton;
+    btnGuardarRes: TButton;
     Image1: TImage;
     Image2: TImage;
     Image3: TImage;
@@ -79,6 +80,7 @@ type
     txtFilaAct1: TEdit;
     procedure btnFilAntClick(Sender: TObject);
     procedure BtnFilSigClick(Sender: TObject);
+    procedure btnGuardarResClick(Sender: TObject);
     procedure btnLoadImageClick(Sender: TObject);
     procedure btnAbrir2Click(Sender: TObject);
     procedure btnOpArClick(Sender: TObject);
@@ -630,6 +632,8 @@ end;
 
 procedure TfrmImagen.MenuItem8Click(Sender: TObject);
 begin
+      filaSelec:=0;
+    PintaHisto();   //Pinta el histograma
   btnFilAnt.Visible:=True;
   txtFilaAct.Visible:=True;
   BtnFilSig.Visible:=True;
@@ -655,6 +659,31 @@ begin
     txtFilaAct.Text:=IntToStr(filaSelec);
         txtFilaAct1.Text:=IntToStr(filaSelec);
     PintaHisto();
+  end;
+end;
+
+procedure TfrmImagen.btnGuardarResClick(Sender: TObject);
+begin
+    // Give the dialog a title
+  saveDialog1.Title := 'Guardar Imagen';
+
+  // Allow only .txt and .doc file types to be saved
+  SaveDialog1.Filter := 'Imagen BMP|*.bmp';
+
+  // Set the default extension
+  SaveDialog1.DefaultExt := 'bmp';
+
+  // Select text files as the starting filter type
+  SaveDialog1.FilterIndex := 1;
+  if SaveDialog1.Execute then
+  begin
+    nom := SaveDialog1.FileName;
+    try
+      Image3.Picture.SaveToFile(nom);
+      ShowMessage('Guardado');
+    except
+      ShowMessage('Error al guardar');
+    end;
   end;
 end;
 

@@ -1,5 +1,5 @@
 object frmImagen: TfrmImagen
-  Left = 448
+  Left = 59
   Height = 701
   Top = 0
   Width = 1366
@@ -158,6 +158,15 @@ object frmImagen: TfrmImagen
     Pen.Color = clLime
     Pen.Style = psDot
     Visible = False
+  end
+  object btnGuardarRes: TButton
+    Left = 1176
+    Height = 25
+    Top = 397
+    Width = 123
+    Caption = 'Guardar Resultado'
+    OnClick = btnGuardarResClick
+    TabOrder = 7
   end
   object MainMenu1: TMainMenu
     left = 440

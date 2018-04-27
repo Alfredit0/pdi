@@ -500,8 +500,8 @@ begin
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   sumaImagenes2(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem23Click(Sender: TObject);
@@ -511,8 +511,8 @@ begin
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   restaImagenes1(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem24Click(Sender: TObject);
@@ -522,8 +522,8 @@ begin
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   restaImagenes2(MTR, MTR2, MRes, Iancho, Ialto); //Resta Imagen B a la images A
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem25Click(Sender: TObject);
@@ -533,8 +533,8 @@ begin
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   restaImagenes2(MTR, MTR2, MRes, Iancho, Ialto); //Resta Imagen B a la images A
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem26Click(Sender: TObject);
@@ -630,6 +630,8 @@ end;
 
 procedure TfrmImagen.MenuItem8Click(Sender: TObject);
 begin
+      filaSelec:=0;
+    PintaHisto();   //Pinta el histograma
   btnFilAnt.Visible:=True;
   txtFilaAct.Visible:=True;
   BtnFilSig.Visible:=True;
