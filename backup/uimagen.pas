@@ -141,6 +141,7 @@ type
     { public declarations }
     BM: TBitMap;
     BM2: TBitMap;
+    BMResA: TBitMap;
     Iancho, Ialto: integer;
     Iancho2, Ialto2: integer;
     MTR, MRES: Mat3D;
@@ -205,6 +206,7 @@ begin
   BM := TBitmap.Create; //Crea el espacio para la imagen
 //  BM := TBitmap.Create;
   BM2 := TBitmap.Create;
+  BMResA:=TBitmap.Create;
   BA := TBitmap.Create;
   Han := imgHisto.Width;  //Ancho y alto de la ventana donde se
   Hal := imgHisto.Height; //graficara el histograma
@@ -303,17 +305,17 @@ begin
 end;
 
 procedure TfrmImagen.btnAbrir2Click(Sender: TObject);
+var Picture: TPicture;
 begin
+  Picture:=TPicture.Create;
+  OpenDialog1.Filter:='Imagen BMP|*.bmp| Imagen JPG|*.jpg| Imagen PNG|*.png';
   if OpenDialog1.Execute then
   begin
     nom := OpenDialog1.FileName;
-    BM2.LoadFromFile(nom); //Carga la imagen en el BitMap
-    //BA.Assign(BM2);
-    BH.Assign(BA);  //El contenido de BA se asigna a BH
-    nc := BH.Width; //Número de columnas
-    nr := BH.Height;//Número de renglones
-    BM_MAT(BH,MH);  //Pasa la imagen a un matriz
-    //BM2.Assign(BM);
+    Picture.LoadFromFile(nom);
+    BM2.Width:=Picture.Width;
+    BM2.Height:=Picture.Height;
+    BM2.Canvas.Draw(0,0, Picture.Graphic);
     Image2.Picture.Assign(BM2); //Muestra la imagen
   end;
 end;
@@ -482,13 +484,13 @@ end;
 
 procedure TfrmImagen.MenuItem21Click(Sender: TObject);
 begin
-    Iancho := BM2.Width;   //Obtiene el ancho de la imagen
+  Iancho := BM2.Width;   //Obtiene el ancho de la imagen
   Ialto := BM2.Height;  //Obtiene el alto de la imagen
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   sumaImagenes1(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem22Click(Sender: TObject);
@@ -567,13 +569,13 @@ end;
 
 procedure TfrmImagen.MenuItem29Click(Sender: TObject);
 begin
-      Iancho := BM2.Width;   //Obtiene el ancho de la imagen
+  Iancho := BM2.Width;   //Obtiene el ancho de la imagen
   Ialto := BM2.Height;  //Obtiene el alto de la imagen
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   operacionAND(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem2Click(Sender: TObject);
@@ -588,18 +590,24 @@ begin
   BM_Mat(BM, MTR);       //La imagen se coloca en un arreglo
   BM_Mat(BM2, MTR2);       //La imagen se coloca en un arreglo
   operacionOR(MTR, MTR2, MRes, Iancho, Ialto); //Calcula el negativo de la imagen
-  Mat_BM(MRes, BM2, Iancho, Ialto); //Se coloca la imagen en un Image
-  Image3.Picture.Assign(BM2); //Muestra la imagen
+  Mat_BM(MRes, BMResA, Iancho, Ialto); //Se coloca la imagen en un Image
+  Image3.Picture.Assign(BMResA); //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem3Click(Sender: TObject);
 begin
-
+  Image1.AutoSize:=True;
+  Image1.Stretch:=False;
+  MImagen(BM);
 end;
 
 procedure TfrmImagen.MenuItem4Click(Sender: TObject);
 begin
-
+   Image1.AutoSize:=False;
+   Image1.Stretch:= True;
+   Image1.Height:= ScrollBox1.Height-5;
+   Image1.Width:=ScrollBox1.Width-5;
+   MImagen(BM);
 end;
 
 //Aplica escala de grises

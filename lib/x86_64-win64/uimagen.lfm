@@ -1,14 +1,15 @@
 object frmImagen: TfrmImagen
-  Left = 5
-  Height = 706
-  Top = 41
+  Left = 448
+  Height = 701
+  Top = 0
   Width = 1366
   Caption = 'IMAGEN'
-  ClientHeight = 686
+  ClientHeight = 681
   ClientWidth = 1366
   Menu = MainMenu1
   OnCreate = FormCreate
   LCLVersion = '1.8.2.0'
+  WindowState = wsMaximized
   object ScrollBox1: TScrollBox
     Left = 8
     Height = 368
@@ -126,16 +127,6 @@ object frmImagen: TfrmImagen
     TabOrder = 5
     Visible = False
   end
-  object Sel: TShape
-    Left = 280
-    Height = 48
-    Top = 376
-    Width = 65
-    Brush.Style = bsClear
-    Pen.Color = clLime
-    Pen.Style = psDot
-    Visible = False
-  end
   object Image2: TImage
     Left = 616
     Height = 354
@@ -156,6 +147,17 @@ object frmImagen: TfrmImagen
     Caption = 'Abrir Imagen B'
     OnClick = btnAbrir2Click
     TabOrder = 6
+  end
+  object Sel: TShape
+    Left = 280
+    Height = 48
+    Top = 352
+    Width = 65
+    Brush.Style = bsClear
+    ParentShowHint = False
+    Pen.Color = clLime
+    Pen.Style = psDot
+    Visible = False
   end
   object MainMenu1: TMainMenu
     left = 440

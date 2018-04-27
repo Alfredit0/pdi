@@ -28,6 +28,8 @@ const
   procedure restaImagenes1(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   procedure restaImagenes2(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   procedure restaImagenes3(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  procedure operacionAND(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+  procedure operacionOR(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
 
 
 implementation
@@ -260,7 +262,7 @@ end;
            end;
   end;
 
-        procedure operacionAND(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
+procedure operacionAND(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
   var
     i, j, k : integer;
   begin
@@ -269,7 +271,7 @@ end;
        for i := 0 to mc-1 do   //columnas
          for k := 0 to 2 do    //canales RGB
            begin
-                    MR[i][j][k]:=M1[i][j][k] and M2[i][j][k];
+              MR[i][j][k]:=M1[i][j][k] and M2[i][j][k];
            end;
   end;
         procedure operacionOR(var M1 : Mat3D;var M2 : Mat3D;var MR : Mat3D; mc,nr : integer);
