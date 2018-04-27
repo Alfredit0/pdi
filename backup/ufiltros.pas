@@ -22,7 +22,7 @@ const
   procedure AplicaLUT(var M1 : Mat3D; var M2 : Mat3D; mc,nr : integer;T : ArrLam);
   procedure reflecHorizontal(var M1 : Mat3D;var M2 : Mat3D; mc,nr : integer);
   procedure reflecVert(var M1 : Mat3D;var M2 : Mat3D; mc,nr : integer);
-  procedure reflecDoble(var M1 : Mat3D;var M2 : Mat3D; mc,nr : integer);
+  procedure reflecVert(var M1 : Mat3D;var M2 : Mat3D; mc,nr : integer);
 
 implementation
 var

@@ -35,6 +35,15 @@ type
     MenuItem18: TMenuItem;
     MenuItem19: TMenuItem;
     MenuItem2: TMenuItem;
+    MenuItem20: TMenuItem;
+    MenuItem21: TMenuItem;
+    MenuItem22: TMenuItem;
+    MenuItem23: TMenuItem;
+    MenuItem24: TMenuItem;
+    MenuItem25: TMenuItem;
+    MenuItem26: TMenuItem;
+    MenuItem27: TMenuItem;
+    MenuItem28: TMenuItem;
     MenuItem3: TMenuItem;
     MenuItem4: TMenuItem;
     MenuItem5: TMenuItem;
@@ -59,6 +68,7 @@ type
     OpenDialog1: TOpenDialog;
     SaveDialog1: TSaveDialog;
     ScrollBox1: TScrollBox;
+    Sel: TShape;
     txtFilaAct: TEdit;
     txtFilaAct1: TEdit;
     procedure btnFilAntClick(Sender: TObject);
@@ -68,7 +78,7 @@ type
     procedure FiltroMaxClick(Sender: TObject);
     procedure FiltroMinClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
-    procedure Image2MouseUp(Sender: TObject; Button: TMouseButton;
+    procedure Image1MouseDown(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure MenuItem10Click(Sender: TObject);
     procedure MenuItem11Click(Sender: TObject);
@@ -80,6 +90,9 @@ type
     procedure MenuItem18Click(Sender: TObject);
     procedure MenuItem19Click(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
+    procedure MenuItem26Click(Sender: TObject);
+    procedure MenuItem27Click(Sender: TObject);
+    procedure MenuItem28Click(Sender: TObject);
     procedure MenuItem2Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
@@ -101,6 +114,12 @@ type
     procedure mnuRegionMedianaClick(Sender: TObject);
     procedure Shape1ChangeBounds(Sender: TObject);
     procedure PintaHisto();
+    procedure Image2Paint(Sender: TObject);
+    procedure Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+    procedure Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+
   private
     { private declarations }
   public
@@ -120,6 +139,8 @@ type
 
 var
   frmImagen: TfrmImagen;
+    PrevX, PrevY: Integer;
+  MouseIsDown: Boolean;
 
 implementation
 
@@ -164,41 +185,82 @@ begin
   imgHisto.Canvas.Brush.Color := clBlack;
   imgHisto.Canvas.Rectangle(0,0,Han,Hal);  //Dibuja un rectángulo negro
   BH := TBitMap.Create; //Se crea el área de trabajo
+  BA.Width:=Screen.Width;
+  BA.Height:=Screen.Height;
+
+  BA.Canvas.Brush.Color:=clWhite;
+  BA.Canvas.FillRect(0,0, BA.Canvas.Width, BA.Canvas.Height);
+
 end;
 
-
-
-procedure TfrmImagen.Image2MouseUp(Sender: TObject; Button: TMouseButton;
+procedure TfrmImagen.Image1MouseDown(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
-var
-  pic: TPicture;
-  bmp: TBitmap;
-  img: TImage;
 begin
-  if inSelect and ( P.X < X )and( P.Y < Y ) then
-  begin
-    img:= TImage(Sender);
-    pic:= TPicture.Create;
-    try
-      pic.Assign(img.Picture);
-      bmp:= TBitmap.Create;
-      try
-        bmp.Height:= img.Picture.Height;
-        bmp.Width := img.Picture.Width;
-        bmp.Canvas.Draw(0, 0, Pic.Graphic);
-        bmp.Canvas.CopyRect(Rect(0, 0, X-P.X, Y-P.Y),
-          bmp.Canvas, Rect(P.X, P.Y, X, Y));
-        bmp.Width := Abs(X-P.X);
-        bmp.Height:= Abs(Y-P.Y);
-
-      finally
-        bmp.Free;
-      end;
-    finally
-      pic.Free;
-    end;
+  if Button = mbLeft then begin
+    MouseIsDown:=True;
+    PrevX:=X;
+    PrevY:=Y;
+    Sel.Visible:=True;
+    Image1MouseMove(Sender,Shift,X,Y);
   end;
 end;
+procedure TfrmImagen.Image1MouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  if MouseIsDown = true then begin
+    Sel.SetBounds(prevx,prevy,X-prevx,y-prevy);
+  end;
+end;
+
+procedure TfrmImagen.Image1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+var
+  rect1, rect2: TRect;
+  destwidth, destheight: Integer;
+begin
+  MouseIsDown:=False;
+  Sel.Visible:=False;
+  // if we do not refresh, then the Sel will
+  // be also drawn !
+  Image1.Refresh;
+
+  // we keep width and height in variables
+  // because we will need it many times
+  destwidth:=X-PrevX;
+  destheight:=Y-PrevY;
+
+  //// We prepare 2 rects for cropping ////
+  // Destination rectangle
+  // ...where the cropped image would be drawn
+  with rect1 do begin
+    Left:=0;
+    Top:=0;
+    Right:=Left+destwidth;
+    Bottom:=Top+destheight;
+  end;
+
+  // Source rectangle
+  // ...where we crop from
+  with rect2 do begin
+    Left:=PrevX;
+    Top:=PrevY;
+    Right:=Left+destwidth;
+    Bottom:=Top+destheight;
+  end;
+
+  // we do the actual drawing
+  BA.Canvas.CopyRect(rect1, Image1.Canvas, rect2);
+  BA.SetSize(destwidth, destheight);
+  Image1.SetBounds(0,0,destwidth,destheight);
+
+  Image2Paint(Sender);
+end;
+procedure TfrmImagen.Image2Paint(Sender: TObject);
+begin
+  Image1.Picture.Assign(BA); //Muestra la imagen
+  BM.Assign(BA);
+end;
+
 
 procedure TfrmImagen.FiltroMaxClick(Sender: TObject);
 begin
@@ -363,6 +425,36 @@ begin
   end
   else if alpha < 1 then
     ShowMessage('α debe ser mayor a 1!');
+end;
+
+procedure TfrmImagen.MenuItem26Click(Sender: TObject);
+begin
+  Iancho := BM.Width;   //Obtiene el ancho de la imagen
+  Ialto := BM.Height;  //Obtiene el alto de la imagen
+  BM_Mat(BM, MTr);       //La imagen se coloca en un arreglo
+  reflecHorizontal(MTr, MRes, Iancho, Ialto); //Calcula la reflexion horizontal
+  Mat_BM(MRes, BM, Iancho, Ialto); //Se coloca la imagen en un Image
+  MImagen(BM);          //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem27Click(Sender: TObject);
+begin
+  Iancho := BM.Width;   //Obtiene el ancho de la imagen
+  Ialto := BM.Height;  //Obtiene el alto de la imagen
+  BM_Mat(BM, MTr);       //La imagen se coloca en un arreglo
+  reflecVert(MTr, MRes, Iancho, Ialto); //Calcula la refexion vertical
+  Mat_BM(MRes, BM, Iancho, Ialto); //Se coloca la imagen en un Image
+  MImagen(BM);          //Muestra la imagen
+end;
+
+procedure TfrmImagen.MenuItem28Click(Sender: TObject);
+begin
+    Iancho := BM.Width;   //Obtiene el ancho de la imagen
+  Ialto := BM.Height;  //Obtiene el alto de la imagen
+  BM_Mat(BM, MTr);       //La imagen se coloca en un arreglo
+  reflecDoble(MTr, MRes, Iancho, Ialto); //Calcula la reflexion doble
+  Mat_BM(MRes, BM, Iancho, Ialto); //Se coloca la imagen en un Image
+  MImagen(BM);          //Muestra la imagen
 end;
 
 procedure TfrmImagen.MenuItem2Click(Sender: TObject);

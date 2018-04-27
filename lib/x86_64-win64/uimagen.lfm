@@ -25,6 +25,9 @@ object frmImagen: TfrmImagen
       Top = 0
       Width = 400
       AutoSize = True
+      OnMouseDown = Image1MouseDown
+      OnMouseMove = Image1MouseMove
+      OnMouseUp = Image1MouseUp
     end
   end
   object imgHisto: TImage
@@ -121,6 +124,16 @@ object frmImagen: TfrmImagen
     Caption = 'Salir del Perfil de Fila'
     OnClick = btnSalirPFClick
     TabOrder = 5
+    Visible = False
+  end
+  object Sel: TShape
+    Left = 256
+    Height = 48
+    Top = 376
+    Width = 65
+    Brush.Style = bsClear
+    Pen.Color = clLime
+    Pen.Style = psDot
     Visible = False
   end
   object MainMenu1: TMainMenu
@@ -243,6 +256,36 @@ object frmImagen: TfrmImagen
           Caption = '8 Negativo'
           OnClick = MenuItem19Click
         end
+      end
+    end
+    object MenuItem20: TMenuItem
+      Caption = 'Op. Aritmeticas'
+      object MenuItem21: TMenuItem
+        Caption = 'Suma 1'
+      end
+      object MenuItem22: TMenuItem
+        Caption = 'Suma 2'
+      end
+      object MenuItem23: TMenuItem
+        Caption = 'Resta 1'
+      end
+      object MenuItem24: TMenuItem
+        Caption = 'Resta 2'
+      end
+      object MenuItem25: TMenuItem
+        Caption = 'Resta 3'
+      end
+      object MenuItem26: TMenuItem
+        Caption = 'Reflexión horizontal'
+        OnClick = MenuItem26Click
+      end
+      object MenuItem27: TMenuItem
+        Caption = 'Reflexión vertical.'
+        OnClick = MenuItem27Click
+      end
+      object MenuItem28: TMenuItem
+        Caption = 'Reflexión doble'
+        OnClick = MenuItem28Click
       end
     end
     object MenuItem6: TMenuItem
